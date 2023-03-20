@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recherche de contrevenants</title>
+</head>
+<body>
+<h1>Recherche de contrevenants</h1>
+<form action="/search" method="post">
+    <label for="search_term">Terme de recherche:</label>
+    <input type="text" name="search_term" id="search_term">
+    <br>
+    <label for="search_type">Type de recherche:</label>
+    <select name="search_type" id="search_type">
+        <option value="etablissement">Nom d'établissement</option>
+        <option value="proprietaire">Propriétaire</option>
+        <option value="rue">Rue</option>
+        <option value="all">Tous</option>
+    </select>
+    <br>
+    <input type="submit" value="Rechercher">
+</form>
+</body>
+</html>
