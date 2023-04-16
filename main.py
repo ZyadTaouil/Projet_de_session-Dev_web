@@ -28,13 +28,12 @@ app.config['SESSION_TYPE'] = 'filesystem'
 # configuration de l'application pour le téléversement de fichier
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'Images')
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'png'}
-app.config['UPLOAD_PATH'] = 'uploads'
 
 
 # fonction de validation du format de fichier
 def allowed_file(filename):
     return any(
-        filename.endswith(ext) for ext in app.config['UPLOAD_EXTENSIONS'])
+        filename.endswith(ext) for ext in app.config['ALLOWED_EXTENSIONS'])
 
 
 # E1 : schema JSON
@@ -214,6 +213,7 @@ def search_violations_by_date():
     # Renvoi des résultats en format JSON
     return jsonify({'results': results}), 200
 
+
 @app.route('/api/violations/etablissements_json')
 def etablissements():
     results = get_db().get_etablissements_violations_count()
@@ -263,7 +263,8 @@ def etablissements_csv():
 @app.route('/etablissements')
 def etablissements_list():
     etablissements = get_db().get_etablissements()
-    return render_template('etablissements.html', etablissements=etablissements)
+    return \
+        render_template('etablissements.html', etablissements=etablissements)
 
 
 @app.route('/api/violations/etablissement/<etablissement_id>', methods=['GET'])
@@ -325,8 +326,8 @@ def login():
         if db_user is not None:
             db_password = db_user[5]
             db_salt = db_user[6]
-            hashed_password = hashlib.sha512 \
-                (str(password + db_salt).encode("utf-8")).hexdigest()
+            hashed_password = hashlib.sha512(
+                str(password + db_salt).encode("utf-8")).hexdigest()
             # Check si l'utilisateur et le mdp existent et sont correctes
             if db_user[2] == email and db_password == hashed_password:
                 id_session = uuid.uuid4().hex
@@ -436,6 +437,7 @@ def logout():
     get_db().delete_session(id_session)
     flash('Vous êtes maintenant déconnecté', 'success')
     return redirect('/')
+
 
 @app.route('/doc')
 def api_doc():

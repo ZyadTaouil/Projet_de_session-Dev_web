@@ -96,13 +96,16 @@
     color: var(--secondary-color);
 }
 
-.footer {
+footer {
     background-color: var(--dark-color);
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-links {
@@ -222,22 +225,28 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .nav {
-    flex-direction: column;
-    align-items: center;
-  }
-  .nav li {
-    margin: 10px 0;
-  }
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav li {
+        margin: 10px 0;
+    }
 }
 
 main {
-  max-width: 100vw;
+    max-width: 100vw;
+}
+
+.login-pic {
+    width: 300px;
 }
 
 

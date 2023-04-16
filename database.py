@@ -373,7 +373,8 @@ class Database:
         if photo is not None:
             photo = os.path.relpath(photo, app.config['UPLOAD_FOLDER'])
         cursor.execute(
-            'UPDATE utilisateurs SET etablissements = ?, photo = ? WHERE id = ?',
+            'UPDATE utilisateurs '
+            'SET etablissements = ?, photo = ? WHERE id = ?',
             (etablissements, photo, user_id)
         )
         connection.commit()

@@ -11,7 +11,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/CSS/home.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-{% block css %}{% endblock %}
+    {% block css %}{% endblock %}
 </head>
 <body>
 <div class="header">
@@ -47,14 +47,20 @@
     {% endwith %}
     {% block content %}
     {% endblock %}
-    </div>
 </main>
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"</script> -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>function hideFlashPrompt(button) {
-    button.parentElement.style.display = "none";
-}</script>
+{% block scripts %}
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"</script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>function hideFlashPrompt(button) {
+        button.parentElement.style.display = "none";
+    }</script>
+{% endblock %}
 {% block extra_js %}{% endblock %}
+<footer class="bg-dark text-center text-white mt-auto">
+    <div class="container p-3">
+        <p>&copy; 2023 Ville de Montréal</p>
+    </div>
+</footer>
 </body>
 </html>
