@@ -1,0 +1,114 @@
+#%RAML 1.0
+title: API Contraventions
+version: v1
+baseUri: http://localhost:5000/api
+
+/api:
+  /contrevenants:
+    get:
+      description: Permet d'obtenir la liste des contrevenants ayant commis au moins une infraction entre deux dates spécifiées en paramètre.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                    {
+                        "etablissement": "RESTAURANT RAJA",
+                        "nb_contraventions": 5
+                    },
+                    {
+                        "etablissement": "DEPANNEUR FRAIS EXPRESS",
+                        "nb_contraventions": 1
+                    },
+                ]
+
+  /api/violations/etablissements_json:
+    get:
+      description: Permet d'obtenir la liste des établissements ayant commis une ou plusieurs infractions, triée en ordre décroissant du nombre d'infractions, en format JSON. Pour chaque établissement, on indique le nombre d'infractions connues.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                    {
+                        "etablissement": "RESTAURANT BASHA",
+                        "nb_infractions": 33
+                    },
+                    {
+                        "etablissement": "DOUBLE PIZZA",
+                        "nb_infractions": 30
+                    },
+                ]
+
+  /api/violations/etablissements_xml:
+    get:
+      description: Permet d'obtenir la liste des établissements ayant commis une ou plusieurs infractions, triée en ordre décroissant du nombre d'infractions, en format XML. Pour chaque établissement, on indique le nombre d'infractions connues.
+      responses:
+        200:
+          body:
+            application/xml; charset=utf-8:
+              example: |
+                <etablissements>
+                    <etablissement nb_infractions="33">RESTAURANT BASHA
+                    </etablissement>
+                    <etablissement nb_infractions="30">DOUBLE PIZZA
+                    </etablissement>
+                    <etablissement nb_infractions="26">BUFFALO BILL WINGS
+                    </etablissement>
+                </etablissements>
+
+  /api/violations/etablissements_csv:
+    get:
+      description: Permet d'obtenir la liste des établissements ayant commis une ou plusieurs infractions, triée en ordre décroissant du nombre d'infractions, en format CSV. Pour chaque établissement, on indique le nombre d'infractions connues.
+      responses:
+        200:
+          body:
+            text/csv; charset=utf-8:
+              example: |
+                Etablissement,Nombre d'infractions
+                RESTAURANT BASHA,33
+                DOUBLE PIZZA,30
+                BUFFALO BILL WINGS,26
+
+  /utilisateurs:
+    post:
+      description: Permettre à un utilisateur de se créer un profil utilisateur.
+      body:
+        application/json:
+          schema: |
+            {
+              "type": "object",
+              "properties": {
+                "nom_complet": {"type": "string"},
+                "email": {"type": "string", "format": "email"},
+                "etablissements": {"type": "array", "items":
+                {"type": "string"}},
+                "mot_de_passe": {"type": "string", "minLength": 8}
+              },
+              "required": ["nom_complet", "email", "mot_de_passe"]
+            }
+          example: |
+            {
+              "nom_complet": "Test Test",
+              "email": "test@test.com",
+              "etablissements": ["RESTAURANT SUBWAY",
+              "RESTAURANT JOLEE"],
+              "mot_de_passe": "qwerty"
+            }
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Utilisateur créé avec succès"
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "erreur": "L'adresse e-mail est déjà utilisée"
+                }

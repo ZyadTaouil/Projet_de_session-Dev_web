@@ -1,24 +1,48 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Recherche de contrevenants</title>
-</head>
-<body>
-<h1>Recherche de contrevenants</h1>
-<form action="/search" method="post">
-    <label for="search_term">Terme de recherche:</label>
-    <input type="text" name="search_term" id="search_term">
-    <br>
-    <label for="search_type">Type de recherche:</label>
-    <select name="search_type" id="search_type">
-        <option value="etablissement">Nom d'établissement</option>
-        <option value="proprietaire">Propriétaire</option>
-        <option value="rue">Rue</option>
-        <option value="all">Tous</option>
-    </select>
-    <br>
-    <input type="submit" value="Rechercher">
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Ville de Montréal{% endblock %}
+{% block content %}
+    <div id="app" class="container">
+        <h1 class="text-center">Recherche de contrevenants</h1>
+        <form action="/search" method="post"
+              class="form-inline justify-content-center">
+            <div class="form-group mr-2">
+                <label for="search_term" class="sr-only">Terme de
+                    recherche:</label>
+                <input type="text" name="search_term" id="search_term"
+                       class="form-control" placeholder="Terme de recherche"
+                       v-model="searchTerm">
+            </div>
+            <div class="form-group mr-2">
+                <label for="search_type" class="sr-only">Type de
+                    recherche:</label>
+                <select name="search_type" id="search_type" class="form-control"
+                        v-model="searchType">
+                    <option value="etablissement">Nom d'établissement</option>
+                    <option value="proprietaire">Propriétaire</option>
+                    <option value="rue">Rue</option>
+                    <option value="all">Tous</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+
+        <h3>Recherche par date :</h3>
+        <form id="search-form" method="get">
+            <div class="form-group">
+                <br>
+                <label for="du">Du:</label>
+                <input type="date" id="du" name="du">
+                <label for="au">Au:</label>
+                <input type="date" id="au" name="au">
+                <input type="submit" value="Rechercher">
+            </div>
+        </form>
+        <br>
+        <div id="results"></div>
+     </div>
+        {% block extra_js %}
+            <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="/static/JS/home.js"></script>
+        {% endblock %}
+
+{% endblock %}

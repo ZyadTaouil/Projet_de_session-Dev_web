@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/CSS/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+{% block css %}{% endblock %}
+</head>
+<body>
+<div class="header">
+    <img src="static/images/Logo_Montréal.png" alt="Logo" class="logo">
+    <ul class="nav">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/etablissements">établissements</a></li>
+        <li><a href="/doc">Documentation API</a></li>
+        {% if not session['id'] %}
+            <li><a href="/inscription">S'inscrire</a></li>
+            <li><a href="/login">Se connecter</a></li>
+        {% else %}
+            <li><a href="/profil">Profil</a></li>
+            <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
+        {% endif %}
+    </ul>
+</div>
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <button type="button" class="close"
+                        aria-label="Close" onclick="hideFlashPrompt(this)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% block content %}
+    {% endblock %}
+    </div>
+</main>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"</script> -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>function hideFlashPrompt(button) {
+    button.parentElement.style.display = "none";
+}</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

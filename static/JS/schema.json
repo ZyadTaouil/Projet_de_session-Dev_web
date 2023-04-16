@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "minLength": 5,
+      "maxLength": 255
+    },
+    "password": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 50
+    },
+    "etablissements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "nom",
+    "email",
+    "password",
+    "etablissements"
+  ]
+}

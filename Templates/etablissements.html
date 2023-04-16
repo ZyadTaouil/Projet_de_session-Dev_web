@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Choisir Etablissement{% endblock %}
+{% block content %}
+    <form id="search-form" method="post">
+        <div class="form-group">
+            <label for="etablissement-select">Choisissez un établissement
+                :</label>
+            <select class="form-control" id="etablissement-select"
+                    name="etablissement_id">
+                {% for etablissement in etablissements %}
+                    <option value="{{ etablissement[0] }}">
+                        {{ etablissement[1] }}</option>
+                {% endfor %}
+            </select>
+        <br>
+            <input type="submit" value="Rechercher" class="btn btn-primary">
+        </div>
+    </form>
+    <div id="results"></div>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/JS/etablissements_search_form.js"></script>
+{% endblock %}

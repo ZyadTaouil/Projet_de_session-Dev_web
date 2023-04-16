@@ -1,46 +1,78 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Résultats de la recherche</title>
-</head>
-<body>
-<h1>Résultats de la recherche</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID poursuite</th>
-        <th>ID entreprise</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Adresse</th>
-        <th>Date de jugement</th>
-        <th>Catégorie</th>
-        <th>Description</th>
-        <th>Montant de l'amende</th>
-        <th>Statut</th>
-        <th>Date de statut</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for violation in violations %}
-        <tr>
-            <td>{{ violation.etablissement }}</td>
-            <td>{{ violation.proprietaire }}</td>
-            <td>{{ violation.adresse }}, {{ violation.ville }}</td>
-            <td>{{ violation.date }}</td>
-            <td>{{ violation.date_jugement }}</td>
-            <td>{{ violation.categorie }}</td>
-            <td>{{ violation.description }}</td>
-            <td>{{ violation.montant }}</td>
-            <td>{{ violation.statut }}</td>
-            <td>{{ violation.date_statut }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>Aucun résultat trouvé.</p>
-{% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Résultats de la recherche{% endblock %}
+{% block css %}
+    <style>
+        @media screen and (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            td {
+                border: 1px solid #ccc;
+                padding: 10px;
+            }
+
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: inline-block;
+                width: 100px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Résultats de la recherche pour "{{ search_term }}"</h1>
+        {% if results %}
+            <div style="overflow-x:auto;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID poursuite</th>
+                        <th>ID entreprise</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Adresse</th>
+                        <th>Date jugement</th>
+                        <th>Etablissement</th>
+                        <th>Montant</th>
+                        <th>Propriétaire</th>
+                        <th>Ville</th>
+                        <th>Statut</th>
+                        <th>Date statut</th>
+                        <th>Catégorie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in results %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>{{ row[7] }}</td>
+                            <td>{{ row[8] }}</td>
+                            <td>{{ row[9] }}</td>
+                            <td>{{ row[10] }}</td>
+                            <td>{{ row[11] }}</td>
+                            <td>{{ row[12] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>Aucun résultat trouvé pour "{{ search_term }}"</p>
+        {% endif %}
+    </div>
+{% endblock %}
