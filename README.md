@@ -89,7 +89,7 @@ utilisateurs qui surveillent cet établissement.
 4. Clonez le projet en utilisant la commande "git clone" suivie de l'URL du dépôt :
 
 ```bash
-git clone https://github.com/yukki96/Projet_de_session-Dev_web.git
+git clone https://github.com/ZyadTaouil/Projet_de_session-Dev_web.git
 ```
 
 5. Patientez jusqu'à ce que le clonage soit terminé.
