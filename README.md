@@ -1,4 +1,4 @@
-# INF5190-H23 - Projet de session (InspectionMTL)
+# INF5190-H23 - Projet de session
 
 ![Version](https://img.shields.io/badge/version-hiver2023-success?style=flat)
 ![License](https://img.shields.io/badge/license-Apache2.0-green?style=flat)
@@ -9,21 +9,20 @@
 ![SQLite3](https://img.shields.io/badge/db-SQLite3-003B57?style=flat&logo=SQLite&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/CSS-Bootstrap-7952B3?style=flat&logo=Bootstrap&logoColor=white)
 
-#### Auteur : OUSSAMA EL-FIGHA
+#### Auteur : Zyad TAOUIL
 
-#### Code permanent : ELFO74030209
+#### Code permanent : TAOZ79370100
 
-#### Courriel : el-figha.oussama@courriel.uqam.ca
+#### Courriel : taouil.zyad@courriel.uqam.ca
 
 ## **📝 Titre et description du projet**
 
-### InspectionMTL
+### Site Web de contraventions
 
 Le projet consiste à récupérer un ensemble de données provenant de la ville de Montréal et d'offrir des services à partir de ces données. Il s'agit de données ouvertes à propos d'établissements ayant reçu des constats d'infraction lors d'inspections alimentaires.
 
 ### Crédits
 
-- Les icônes, images et gifs ont été prises du site: https://montreal.ca/
 - Les données ont été prise de : https://data.montreal.ca/dataset/05a9e718-6810-4e73-8bb9-5955efeb91a0/resource/7f939a08-be8a-45e1-b208-d8744dca8fc6/download/violations.csv
 - Jacques Berger
 
@@ -57,13 +56,9 @@ Le projet consiste à récupérer un ensemble de données provenant de la ville 
 
 **Envoi de nouvelles contraventions par courriel**: Le système détecte les nouvelles contraventions depuis la dernière importation de données, en dresse une liste sans doublon et l'envoi par courriel automatiquement.
 
-#### B2
-
-**Publication automatique sur Reddit**: Les noms d'établissement des nouvelles contraventions sont publiés automatiquement sur un subreddit avec un compte Reddit.
-
 #### C1
 
-**API REST pour obtenir la liste des établissements ayant commis des infractions**: Un service REST qui renvoie la liste des établissements ayant commis une ou plusieurs infractions, triée par ordre décroissant du nombre d'infractions. Le service est documenté avec RAML sur `/doc`.
+**API REST pour obtenir la liste des établissements ayant commis des infractions**: Un service REST renvoyant la liste des établissements ayant commis une ou plusieurs infractions, triée par ordre décroissant du nombre d'infractions. Le service est documenté avec RAML sur `/doc`.
 
 #### C2
 
@@ -73,17 +68,18 @@ Le projet consiste à récupérer un ensemble de données provenant de la ville 
 
 **Service pour obtenir les données au format CSV**: Un service qui renvoie les mêmes données que le point C1 au format CSV avec un encodage UTF-8. Le service est documenté avec RAML sur `/doc`.
 
-#### D1
-
-**Service REST pour faire une demande d'inspection à la ville**: Un service REST qui permet de soumettre une demande d'inspection avec des informations spécifiques. Le document JSON est validé avec json-schema et le service est documenté avec RAML sur `/doc`. Une page de plainte est également disponible pour soumettre une demande d'inspection via un formulaire web.
-
 #### E1
 
-**Service REST pour créer un profil d'utilisateur**: Un service REST qui permet de créer un profil d'utilisateur avec des informations spécifiques. Le document JSON est validé avec json-schema et le service est documenté avec RAML sur `/doc`.
+**Service REST pour créer un profil d'utilisateur**: Un service REST permettant de créer un profil utilisateur avec des informations spécifiques. Le document JSON est validé avec json-schema et le service est documenté avec RAML sur `/doc`.
 
 #### E2
 
-**Page web d'authentification et de gestion du profil**: Une page web permet d'invoquer le service de création de profil d'utilisateur et propose une option d'authentification.
+**Page web d'authentification et de gestion du profil**: Une page web permettant d'invoquer le service de création de profil d'utilisateur et propose une option d'authentification.
+
+#### E3
+
+**Envoi automatique par courrier de nouveaux contrevenants**: Lorsqu'un nouveau contrevenant est détecté, un courriel est automatiquement envoyé à tous les
+utilisateurs qui surveillent cet établissement.
 
 ## :cyclone: Clone du projet
 
@@ -93,7 +89,7 @@ Le projet consiste à récupérer un ensemble de données provenant de la ville 
 4. Clonez le projet en utilisant la commande "git clone" suivie de l'URL du dépôt :
 
 ```bash
-git clone https://github.com/oussamaelfig/Ville_Montreal.git
+git clone https://github.com/yukki96/Projet_de_session-Dev_web.git
 ```
 
 5. Patientez jusqu'à ce que le clonage soit terminé.
@@ -106,15 +102,11 @@ Pour installer et exécuter cette application Flask, vous aurez besoin de :
 
 - Python 3.9 ou version ultérieure
 - Flask et ses dépendances :
-- - Flask
-  - flask-login 
-  - requests 
+  - Flask
   - APScheduler
   - PyYAML
   - jsonschema
   - Werkzeug 
-  - praw 
-  - sendinblue
 
 ## :wrench: Installation
 
@@ -188,18 +180,18 @@ Maintenant, votre environnement virtuel est prêt et vous pouvez commencer à d�
 
 1. Assurez-vous que l'environnement virtuel que vous avez créé est activé. Si ce n'est pas le cas, activez-le en suivant les instructions précédente.
 
-2. Définissez la variable d'environnement `FLASK_APP` pour indiquer à Flask le fichier qui contient votre application. Le fichier principal de mon application Flask est nommé `app.py`.
+2. Définissez la variable d'environnement `FLASK_APP` pour indiquer à Flask le fichier qui contient votre application. Le fichier principal de mon application Flask est nommé `main.py`.
    
    * Sur Windows :
      
      ```powershell
-     set FLASK_APP=app.py
+     set FLASK_APP=main.py
      ```
    
    * Sur macOS et Linux :
      
      ```bash
-     export FLASK_APP=app.py
+     export FLASK_APP=main.py
      ```
 
 3. Enfin, démarrez votre application Flask en exécutant la commande suivante :
@@ -216,8 +208,3 @@ Maintenant, votre environnement virtuel est prêt et vous pouvez commencer à d�
 ## 📄**Documentation de l'API**
 
 Toute la documentation des services REST sera disponible à la route `/doc`.
-
-## 🚀 Déploiement sur PyhtonAnyWhere
-
-L'API est aussi disponible sur [pythonanywhere](http://elfiDev.pythonanywhere.com/).
-Cliquez sur le lien pour acceder au site.
