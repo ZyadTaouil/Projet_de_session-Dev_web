@@ -24,6 +24,7 @@ Le projet consiste à récupérer un ensemble de données provenant de la ville 
 ### Crédits
 
 - Les données ont été prise de : https://data.montreal.ca/dataset/05a9e718-6810-4e73-8bb9-5955efeb91a0/resource/7f939a08-be8a-45e1-b208-d8744dca8fc6/download/violations.csv
+- Utilisation d'une balise HTML spéciale : multi-checkbox importée de : https://www.cssscript.com/multip-select-dropdown-checkbox/
 - Jacques Berger
 
 ## **🎯 Fonctionnalités**
