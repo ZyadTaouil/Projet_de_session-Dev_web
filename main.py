@@ -137,6 +137,24 @@ def send_notification(email, etablissement):
     except smtplib.SMTPException as e:
         print(f'Erreur lors de l\'envoi de la notification à {email}: {e}')
 
+def check_for_new_contraventions():
+    today = datetime.now().date()
+    yesterday = today - timedelta(days=1)
+    today_data = get_db().get_contraventions_by_date(today)
+    yesterday_data = get_db().get_contraventions_by_date(yesterday)
+    today_etablissements = set(today_data)
+    yesterday_etablissements = set(yesterday_data)
+    new_etablissements = today_etablissements - yesterday_etablissements
+    if len(new_etablissements) > 0:
+        destinataire_email = config['recipient_email']
+        for etab in new_etablissements:
+            # B1 : envoi à l'email dans la configuration YAML une notification
+            # pour chaque nouveau contrevenant
+            send_notification(destinataire_email, etab)
+            users_email = get_db().get_users_by_etablissement(etab)
+            for user_email in users_email:
+                send_notification(user_email, etab)
+    return new_etablissements
 
 def check_for_new_etablissements():
     today = datetime.now().date()
@@ -162,7 +180,10 @@ def check_for_new_etablissements():
 scheduler = BackgroundScheduler()
 # mise à jour des données une fois par jour
 scheduler.add_job(func=get_db().update_data, trigger="interval", days=1)
-# B1 / E3 : check une fois par jour s'il y a de nouveaux contrevenants
+# B1 : check une fois par jour s'il y a de nouvelles contraventions
+scheduler.add_job(func=check_for_new_contraventions,
+                  trigger="interval", days=1)
+# E3 : check une fois par jour s'il y a de nouveaux contrevenants
 scheduler.add_job(func=check_for_new_etablissements,
                   trigger="interval", days=1)
 

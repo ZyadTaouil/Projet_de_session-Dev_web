@@ -249,6 +249,8 @@ main {
     width: 300px;
 }
 
-
+body {
+     background-image: url('/static/images/ville_montreal.png');
+}
 
 
