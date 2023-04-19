@@ -161,6 +161,16 @@ class Database:
     def get_etablissements_by_date(self, date):
         conn = self.get_connection()
         cursor = conn.cursor()
+        cursor.execute("SELECT id_poursuite FROM violations WHERE date=?",
+                       (date,))
+        results = cursor.fetchall()
+        conn.close()
+
+        return results
+
+    def get_contraventions_by_date(self, date):
+        conn = self.get_connection()
+        cursor = conn.cursor()
         cursor.execute("SELECT etablissement FROM violations WHERE date=?",
                        (date,))
         results = cursor.fetchall()
